@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "generic-etl-lib"
+version = "0.1.0"
+description = "Kimball's 34 ETL subsystems implemented for Apache Spark / Databricks"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Raphael Henryk" }]
+keywords = ["etl", "kimball", "spark", "databricks", "data-warehouse", "dimensional-modeling", "delta"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Topic :: Database",
+    "Intended Audience :: Developers",
+]
+# pyspark is provided by the Databricks runtime; it is only an optional dependency
+# for local development so the wheel does not pull a second Spark onto a cluster.
+dependencies = []
+
+[project.optional-dependencies]
+spark = ["pyspark>=3.4"]
+delta = ["delta-spark>=2.4"]
+dev = ["pyspark>=3.4", "pytest>=7"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
